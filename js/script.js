@@ -1,11 +1,11 @@
 // Current day using moment API
 var currentDayEl  = document.querySelector('#currentDay');
     setInterval(function() {
-    currentDayEl.textContent = moment().format('dddd, MMMM Do YYYY, h:mm:ss'); // Weekday, October 31st 2022
+    currentDayEl.textContent = moment().format('dddd, MMMM Do YYYY'); // Weekday, October 31st 2022
     }, 1000); // refreshes every second (in milliseconds)
 
 
-$(document).ready(function(){ //Ensures function is only available after page is loaded
+$(document).ready(function() { //Ensures function is only available after page is loaded
 
 $('.saveBtn').on('click', function() {
 
@@ -21,7 +21,7 @@ $('.saveBtn').on('click', function() {
     //Notification disappears after 5 secs
     setTimeout (function() {
         $('.notification').removeClass('show');
-        }, 5000);
+    }, 5000);
 
 });
 
@@ -36,46 +36,36 @@ $('#hour-15 .description').val(localStorage.getItem('hour-15'));
 $('#hour-16 .description').val(localStorage.getItem('hour-16'));
 $('#hour-17 .description').val(localStorage.getItem('hour-17'));
   
-
-
-
 //Get current time of day
 var now = moment().format('hh');
 var nowNum = parseInt (now, 10); // for good measure, turns string into number
 console.log(nowNum);
 
 //Function which changes color at specific time of day
-function blahBlah() {
+function updateClr() {
 
-    //do something here
+    //Extract number from id
+    $('.time-block').each(function() {
+    var activityHour = parseInt($(this).attr('id').split('-')[1]);
+    console.log(activityHour);
 
-}
-
-//Extract number from id
-var text = $("#hour-16").text(); 
-var number = parseInt (text, 10);
-console.log(number);
-
-// $('.time-block').each(function () {
-//     var blockHour = parseInt($(this).attr('id').split('-')[1]);
-
-//if time block = now, then apply red background color
-if (number === nowNum) {
-    $(".time-block").addClass('present');
-}
-
-//If time block < now, then apply gray background color
-// .past
-
-// //if time block = now, then apply red background color
-// if .present
-
-// //if time block > now, then apply green background color
-// .future
+    if (activityHour < nowNum) {
+        $(this).addClass('past');
+      } else if (activityHour === nowNum) {
+        $(this).removeClass('past');
+        $(this).addClass('present');
+      } else {
+        $(this).removeClass('past');
+        $(this).removeClass('present');
+        $(this).addClass('future');
+      }
+    });
+};
 
 //Call function
-blahBlah();
+updateClr();
 
-var interval = setInterval(blahBlah, 15000);
+//periodically checks if time needs to be updated
+    var interval = setInterval(updateClr, 15000);
 
-})
+});
