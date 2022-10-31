@@ -8,20 +8,35 @@ var currentDayEl  = document.querySelector('#currentDay');
 $(document).ready(function(){ //Ensures function is only available after page is loaded
 
 $('.saveBtn').on('click', function() {
-    //do something on click
+
+    var value = $(this).siblings('.description').val(); //value is entered by user
+    var time = $(this).parent().attr('id'); //key is corresponding hour block
+    
     //Saves user input to local storage (setItem)
-
-    //Display local storage data on page (getItem)
-
+    localStorage.setItem(time, value);
+   
     //Notification appears: "Saved to LocalStorage"
     $('.notification').addClass('show');
 
     //Notification disappears after 5 secs
     setTimeout (function() {
         $('.notification').removeClass('show');
-    }, 5000);
+        }, 5000);
+
 });
-}) 
+
+//Display local storage data on page (getItem)
+$('#hour-9 .description').val(localStorage.getItem('hour-9'));
+$('#hour-10 .description').val(localStorage.getItem('hour-10'));
+$('#hour-11 .description').val(localStorage.getItem('hour-11'));
+$('#hour-12 .description').val(localStorage.getItem('hour-12'));
+$('#hour-13 .description').val(localStorage.getItem('hour-13'));
+$('#hour-14 .description').val(localStorage.getItem('hour-14'));
+$('#hour-15 .description').val(localStorage.getItem('hour-15'));
+$('#hour-16 .description').val(localStorage.getItem('hour-16'));
+$('#hour-17 .description').val(localStorage.getItem('hour-17'));
+  
+
 
 
 //Get current time of day
@@ -37,7 +52,7 @@ function blahBlah() {
 }
 
 //Extract number from id
-var text = $("#hour-14").text(); 
+var text = $("#hour-16").text(); 
 var number = parseInt (text, 10);
 console.log(number);
 
@@ -60,3 +75,7 @@ if (number === nowNum) {
 
 //Call function
 blahBlah();
+
+var interval = setInterval(blahBlah, 15000);
+
+})
