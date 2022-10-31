@@ -70,3 +70,13 @@ textarea{
   font-size: 28px;
   transition: all .3s ease-in-out;
 }
+
+.notification {
+  display:none;
+  color: black;
+  padding-bottom: 5px;
+}
+
+.show {
+  display: block;
+}
